@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RestaurantMenu.ApiService
+namespace RestaurantMenu.ApiService.Configuration
 {
     public class SlugifyParameterTransformer : IOutboundParameterTransformer
     {
