@@ -17,9 +17,14 @@ public static class ServiceConfiguration
         var user = builder.Configuration.GetValue<string>("POSTGRESQL:USERNAME") ?? "";
         var password = builder.Configuration.GetValue<string>("POSTGRESQL:PASSWORD") ?? "";
         var database = builder.Configuration.GetValue<string>("POSTGRESQL:DATABASE") ?? "";
-        var dbConnection = $"Host={host};Port={port};Username={user};Password={password};Database={database}";
+        var commandTimeout = "60";
 
-        builder.Services.AddDbContext<PostgreSQLContext>(options => options.UseNpgsql(dbConnection));
+        var dbConnection = $"Host={host};Port={port};Username={user};Password={password};Database={database};CommandTimeout={commandTimeout}";
+
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(dbConnection)
+                .UseSnakeCaseNamingConvention()
+        );
 
         return builder;
     }
